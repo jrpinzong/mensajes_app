@@ -1,0 +1,24 @@
+services:
+  mysql-db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Annie19/
+      MYSQL_DATABASE: my-db
+      MYSQL_USER: JavaSE
+      MYSQL_PASSWORD: Annie19/
+    ports:
+      - 3306:3306
+    volumes:
+      - /var/dbbackup:/docker-entrypoint-initdb.d
+      - /var/lib/mysql:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+    depends_on:
+      - mysql-db
